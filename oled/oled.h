@@ -54,15 +54,15 @@ namespace Project {
         /// set row: 0 to (screen_height / 8) - 1
         void setRow(int newRow);
 
-        struct SetCursorArgs { int newColumn, newRow; };
+        struct SetCursorArgs { int column, row; };
 
         /// set column and row
         /// @param args
         ///     - .newColumn
         ///     - .newRow
         void setCursor(SetCursorArgs args) {
-            setColumn(args.newColumn);
-            setRow(args.newRow);
+            setColumn(args.column);
+            setRow(args.row);
         }
 
         struct PrintCharArgs { bool invertColor; };
@@ -87,7 +87,7 @@ namespace Project {
         Oled &operator<<(char ch) {
             if (print(ch) != -2) return *this;
             if (row + fontRows() >= screenRows()) return *this; // last row
-            setCursor({.newColumn=0, .newRow=row + fontRows()});
+            setCursor({.column=0, .row=row + fontRows()});
             return *this;
         }
 

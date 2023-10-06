@@ -162,11 +162,11 @@ void Oled::clear(ClearArgs args) {
     memset(data, color, len);
 
     for (auto r = args.rowStart; r <= args.rowEnd; r++) {
-        setCursor({.newColumn=args.columnStart, .newRow=r});
+        setCursor({.column=args.columnStart, .row=r});
         writeData(data, len);
     }
     
-    setCursor({.newColumn=args.columnStart, .newRow=args.rowStart});
+    setCursor({.column=args.columnStart, .row=args.rowStart});
 }
 
 void Oled::setColumn(int newColumn) {
