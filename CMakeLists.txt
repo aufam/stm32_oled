@@ -10,7 +10,3 @@ target_include_directories(oled PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 # defines
 target_compile_definitions(oled PUBLIC -DOLED_VERSION="${OLED_VERSION}")
-
-# depends
-target_link_libraries(oled etl)
-target_link_libraries(oled periph)

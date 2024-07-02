@@ -1,7 +1,7 @@
 #ifndef PROJECT_OLED_OLED_H
 #define PROJECT_OLED_OLED_H
 
-#include "periph/i2c.h"
+#include "Core/Inc/i2c.h"
 #include "oled/SSD1306init.h"
 #include "oled/fonts/allFonts.h"
 
@@ -11,13 +11,13 @@ namespace Project {
         enum { ID_CMD = 0x00u, ID_DATA = 0x40u };
         typedef const uint8_t *Font;
         typedef const DevType &DeviceType;
-        inline static const etl::Time timeout = etl::time::milliseconds(100);
 
-        periph::I2C &i2c;
+        I2C_HandleTypeDef &hi2c;
         uint8_t slaveAddr = 0x78;      
         Font font = Adafruit5x7;                 ///< see fonts/allFonts.h
         DeviceType device = Adafruit128x64;      ///< see SSD1306init.h
         uint8_t column = 0, row = 0;
+        size_t timeout = 100;
 
         void init();    ///< write initial commands and clear the screen
         void deinit();  ///< 

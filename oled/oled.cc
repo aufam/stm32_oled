@@ -4,22 +4,20 @@
 using namespace Project;
 
 void Oled::init() {
-    i2c.init();
     for (uint8_t i = 0; i < device.initSize; i++) 
         writeCmd(device.initcmds[i]);
     clear();
 }
 
 void Oled::deinit() {
-    i2c.deinit();
 }
 
 int Oled::writeCmd(uint8_t cmd) const {
-    return i2c.writeBlocking({.deviceAddr=slaveAddr, .memAddr=ID_CMD, .buf=&cmd, .len=1, .timeout=timeout});
+    return HAL_I2C_Mem_Write(&hi2c, slaveAddr, ID_CMD, 1, &cmd, 1, timeout);
 }
 
 int Oled::writeData(uint8_t *data, uint16_t len) {
-    return i2c.writeBlocking({.deviceAddr=slaveAddr, .memAddr=ID_DATA, .buf=data, .len=len, .timeout=timeout});
+    return HAL_I2C_Mem_Write(&hi2c, slaveAddr, ID_DATA, 1, data, len, timeout);
 }
 
 int Oled::print(char ch, PrintCharArgs args) {
