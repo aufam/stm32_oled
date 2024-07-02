@@ -7,7 +7,7 @@
 
 namespace Project { struct Oled; }
 
-struct Oled {
+struct Project::Oled {
     enum { ID_CMD = 0x00u, ID_DATA = 0x40u };
     typedef const uint8_t *Font;
     typedef const DevType &DeviceType;
