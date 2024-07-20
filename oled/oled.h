@@ -4,6 +4,7 @@
 #include "Core/Inc/i2c.h"
 #include "oled/SSD1306init.h"
 #include "oled/fonts/allFonts.h"
+#include <type_traits>
 
 namespace Project { struct Oled; }
 
@@ -77,17 +78,16 @@ struct Project::Oled {
     /// @retval 0 = success, -1 = error font is null
     int print(const char *str, PrintStrArgs args = {false, 0xff, 0xff});
 
-    /// print operator
-    Oled &operator<<(const char *str) { 
-        print(str); 
-        return *this; 
-    }
-
-    /// overload
-    Oled &operator<<(char ch) {
-        if (print(ch) != -2) return *this;
-        if (row + fontRows() >= screenRows()) return *this; // last row
-        setCursor({.column=0, .row=row + fontRows()});
+    /// write operator for any type of string
+    template <typename T>
+    Oled& operator<<(const T& str) {
+        if constexpr (std::is_same_v<T, const char*>) {
+            print(str);
+        } else if constexpr (std::is_same_v<T, char>) {
+            if (print(str) != -2) return *this;
+            if (row + fontRows() >= screenRows()) return *this; // last row
+            setCursor({.column=0, .row=row + fontRows()});
+        }
         return *this;
     }
 
