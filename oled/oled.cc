@@ -81,7 +81,10 @@ int Oled::print(char ch, PrintCharArgs args) {
 
     const uint8_t _col = column;
     const uint8_t _row = row;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wvla"
     uint8_t bytes[fontW + 1];
+#pragma GCC diagnostic pop
     bytes[fontW] = invertColor ? 0xFF : 0; // letter spacing
 
     for (uint8_t y = 0; y < fontR; y++) {
@@ -155,7 +158,10 @@ void Oled::clear(ClearArgs args) {
         return; // invalid value
 
     uint16_t len = args.columnEnd - args.columnStart + 1;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wvla"
     uint8_t data[len];
+#pragma GCC diagnostic pop
     int color = args.invertColor ? 0xFF : 0;
     memset(data, color, len);
 
