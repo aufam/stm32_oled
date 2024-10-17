@@ -1,7 +1,7 @@
 #ifndef PROJECT_OLED_OLED_H
 #define PROJECT_OLED_OLED_H
 
-#include "Core/Inc/i2c.h"
+#include "i2c.h"
 #include "oled/SSD1306init.h"
 #include "oled/fonts/allFonts.h"
 #include <type_traits>
